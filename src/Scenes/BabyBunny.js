@@ -4,11 +4,6 @@ class BabyBunny extends Phaser.Scene {
 
         this.my = {sprite: {}, text: {}};
 
-        //temp location for sprites so i can see them and change anything i need on them
-        //TODO: delete this later
-        this.tempX = 300;
-        this.tempY = 350;
-
         //set movement speed
         this.playerSpeed = 5;
         this.foodSpeed = 5;
@@ -34,16 +29,13 @@ class BabyBunny extends Phaser.Scene {
     preload(){
         //getting the assets for the Kenny assets pack
         this.load.setPath("./assets/");
-        //the round rabbits are the babies, from animal pack
+        //the round animals, from animal pack
         this.load.atlasXML("roundAnimals", "round.png", "round.xml");
 
         //the player will be the rifle from the gallery shooter pack
         this.load.atlasXML("player", "spritesheet_objects.png", "spritesheet_objects.xml");
         //the "food"/"vitamin"
         this.load.atlasXML("food", "spritesheet_hud.png", "spritesheet_hud.xml");
-
-        //the "enamy" the bird
-        //this.load.atlasXML("bird", "round.png", "round.xml");
 
         //loading the kenny rocket square bitmap font
         //seen in bulletTime example
@@ -58,29 +50,16 @@ class BabyBunny extends Phaser.Scene {
     create(){
         let my = this.my;
 
-        /*
-        let bunnyFirstX = Math.random()*config.width;
-        let bunnyLimitX = ((Math.random()*config.width) - bunnyFirstX) + bunnyFirstX;//Math.random()*(config.width - bunnyFirstX) + bunnyFirstX;
-        let bunnyPathY = Math.random()*(config.height/2);
-        */
-
-        //the bird paths limites
-        //let birdFirstY = Math.random()*(config.height/2);
-        //let birdLimitY = Math.random()*((config.height/2));
-        //let birdPathX = Math.random()*config.width;
         //making the key inputs
         this.left = this.input.keyboard.addKey("A");
         this.right = this.input.keyboard.addKey("D");
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        //this.rKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-        //this.playerSpeed = 5;
-        //this.foodSpeed = 5;
         
         //adding the player to the scene
         my.sprite.player = new Player(this, game.config.width/2, game.config.height - 40, "player", "rifle.png", this.left, this.right, this.playerSpeed);
         my.sprite.player.setScale(0.5);
 
+        //making  the text for the score and time
         my.text.score = this.add.bitmapText(580, 0, "rocketSquare", "Score " + this.myScore);
         my.text.time = this.add.bitmapText(290, 0, "rocketSquare", "Time " + this.myTime);
 
@@ -92,75 +71,6 @@ class BabyBunny extends Phaser.Scene {
         //the time a bird spaw gets called in the amount of birds in the array
         this.birdSpawn();
         this.birdSpawn();
-
-        //making the path the bunnies will follow
-        /*
-        this.bunnyPoints = [
-            bunnyFirstX, bunnyPathY,
-            bunnyLimitX, bunnyPathY
-        ];
-        this.bunnyCurve = new Phaser.Curves.Spline(this.bunnyPoints);
-        */
-        
-
-        //the birds path curve
-        /*
-        this.birdPoints = [
-            birdPathX, birdFirstY,
-            birdPathX, birdLimitY
-        ];
-        this.birdCurve = new Phaser.Curves.Spline(this.birdPoints);
-        */
-
-        //making the bunny sprite
-        //my.sprite.babyBun = this.add.follower(this.bunnyCurve, 10, 10, "baby_bunny", "rabbit.png");
-        //my.sprite.babyBun.setScale(0.3);
-        //my.sprite.babyBun.visible = false;
-
-        //making the bird sprite
-        //my.sprite.bird = this.add.follower(this.birdCurve, 10, 10, "bird", "parrot.png");
-        //my.sprite.bird.setScale(0.3);
-        //my.sprite.bird.visible = false;
-
-        /*
-        my.sprite.babyBun.x = this.bunnyCurve.points[0].x;
-        my.sprite.babyBun.y = this.bunnyCurve.points[0].y;
-        my.sprite.babyBun.visible = true;
-        */
-
-        /*
-        my.sprite.bird.x = this.birdCurve.points[0].x;
-        my.sprite.bird.y = this.birdCurve.points[0].y;
-        my.sprite.bird.visible = true;
-
-        
-        my.sprite.babyBun.startFollow({
-            from: 0,
-            to: 1,
-            delay: 0,
-            duration: 2000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true,
-            rotateToPath: false,
-            rotationOffset: -90
-        });
-        
-
-        my.sprite.bird.startFollow({
-            from: 0,
-            to: 1,
-            delay: 0,
-            duration: 2000,
-            ease: 'Sine.easeInOut',
-            repeat: -1,
-            yoyo: true,
-            rotateToPath: false,
-            rotationOffset: -90
-        });
-        */
-
-        //making the score text
 
         // update HTML description
         document.getElementById('description').innerHTML = '<h2>Baby Bunny.js</h2><br>A: left // D: right' // "// Space: fire/emit // S: Next Scene"
@@ -191,16 +101,19 @@ class BabyBunny extends Phaser.Scene {
     bunnySpawn(){
         let my = this.my;
 
+        //the path limites for the bunny
         let bunnyFirstX = Math.random()*config.width;
         let bunnyLimitX = ((Math.random()*config.width) - bunnyFirstX) + bunnyFirstX;
         let bunnyPathY = Math.random()*(config.height/2);
 
+        //making the path the bunny follows
         this.bunnyPoints = [
             bunnyFirstX, bunnyPathY,
             bunnyLimitX, bunnyPathY
         ];
         this.bunnyCurve = new Phaser.Curves.Spline(this.bunnyPoints);
 
+        //makes the bunny sprite
         my.sprite.babyBun = this.add.follower(this.bunnyCurve, 10, 10, "roundAnimals", "rabbit.png");
         my.sprite.babyBun.setScale(0.3);
         my.sprite.babyBun.scorePoints = 50;
@@ -209,6 +122,7 @@ class BabyBunny extends Phaser.Scene {
         my.sprite.babyBun.y = this.bunnyCurve.points[0].y;
         my.sprite.babyBun.visible = true;
         
+        //sets the bunny on the path
         my.sprite.babyBun.setPath(this.bunnyCurve);
         my.sprite.babyBun.startFollow({
             from: 0,
@@ -222,10 +136,8 @@ class BabyBunny extends Phaser.Scene {
             rotationOffset: -90
         });
 
+        //pushes the bunny sprite into the array
         my.sprite.bunnryArray.push(my.sprite.babyBun);
-
-        //return my.sprite.babyBun;
-        
     }
 
     birdSpawn(){
@@ -236,12 +148,14 @@ class BabyBunny extends Phaser.Scene {
         let birdLimitY = Math.random()*((config.height/2) + birdFirstY);
         let birdPathX = Math.random()*config.width;
 
+        //making the path the bird follows
         this.birdPoints = [
             birdPathX, birdFirstY,
             birdPathX, birdLimitY
         ];
         this.birdCurve = new Phaser.Curves.Spline(this.birdPoints);
 
+        //makes the bird sprite
         my.sprite.bird = this.add.follower(this.birdCurve, 10, 10, "roundAnimals", "parrot.png");
         my.sprite.bird.setScale(0.3);
         my.sprite.bird.scorePoints = 25;
@@ -250,7 +164,7 @@ class BabyBunny extends Phaser.Scene {
         my.sprite.bird.y = this.birdCurve.points[0].y;
         my.sprite.bird.visible = true;
 
-        
+        //sets the bird on the path
         my.sprite.bird.startFollow({
             from: 0,
             to: 1,
@@ -263,6 +177,7 @@ class BabyBunny extends Phaser.Scene {
             rotationOffset: -90
         });
 
+        //pushes the bird into the array
         my.sprite.birdArray.push(my.sprite.bird);
     }
 
@@ -301,14 +216,16 @@ class BabyBunny extends Phaser.Scene {
                     this.myScore += my.sprite.babyBun.scorePoints;
                     this.updateScore();
 
+                    //destroy the current bunny from the array
                     bunny.destroy();
                     my.sprite.bunnryArray.splice(k, 1);
 
+                    //play the sound
                     this.sound.play("goodHit", {
                         volume: 0.5
                     });
 
-                    //add a new bunny
+                    //add a new bunny - and keeps the array in 4 sprites
                     if(my.sprite.bunnryArray.length < 4){
                         this.bunnySpawn();
                     }
@@ -325,13 +242,16 @@ class BabyBunny extends Phaser.Scene {
                     this.myScore -= my.sprite.bird.scorePoints;
                     this.updateScore();
 
+                    //destroy the current bird
                     currBird.destroy();
                     my.sprite.birdArray.splice(k, 1);
 
+                    //the sound play
                     this.sound.play("badHit", {
                         volume: 0.5
                     });
 
+                    //adds a new bird
                     if(my.sprite.birdArray.length < 2){
                         this.birdSpawn();
                     }
@@ -343,17 +263,20 @@ class BabyBunny extends Phaser.Scene {
 
     }
 
+    //the collision function - checks if the two sprites collide
     collides(a, b){
         if(Math.abs(a.x - b.x) > (a.displayWidth/2 + b.displayWidth/2)) return false;
         if(Math.abs(a.y - b.y) > (a.displayHeight/2 + b.displayHeight/2)) return false;
         return true;
     }
 
+    //updates the score
     updateScore(){
         let my = this.my;
         my.text.score.setText("Score " + this.myScore);
     }
 
+    //keeps track and updates the timer
     onSecond(){
         this.myTime--;
         this.my.text.time.setText("Time: " + this.myTime);
@@ -363,6 +286,7 @@ class BabyBunny extends Phaser.Scene {
             
             //the registry functiion keeps the score for the next scene, but leaves the myScore the same for this scene
             this.registry.set('highScore', this.myScore);
+            //changes the scene when time in up
             this.scene.start("scoreRoundOne");
         }
     }
