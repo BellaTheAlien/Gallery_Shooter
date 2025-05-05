@@ -1,7 +1,7 @@
 class ScoreRoundTwo extends Phaser.Scene {
     constructor(){
         super("scoreRoundTwo");
-
+        this.my = {sprite: {}};
        
     }
 
