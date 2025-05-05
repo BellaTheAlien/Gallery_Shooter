@@ -44,7 +44,7 @@ class Pigs extends Phaser.Scene {
         //loading the kenny rocket square bitmap font
         //seen in bulletTime example
         // BMFont: https://www.angelcode.com/products/bmfont/
-        this.load.bitmapFont("rocketSquare", "KennyRocketSquare_0.png", "kennyRocketSquare.fnt");
+        this.load.bitmapFont("rocketSquare", "KennyRocketSquare_0.png", "KennyRocketSquare.fnt");
 
         //to load in the game audio
         this.load.audio("goodHit", "jingles_PIZZI02.ogg");
