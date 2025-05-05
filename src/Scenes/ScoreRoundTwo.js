@@ -6,11 +6,20 @@ class ScoreRoundTwo extends Phaser.Scene {
     }
 
     preload(){
+        this.load.setPath("./assets/");
+
         //sound
         this.load.audio("hubNote", "jingles_SAX10.ogg");
+
+        //load the time up sprite
+        this.load.atlasXML("gamHub", "spritesheet_hud.png", "spritesheet_hud.xml");
     }
 
     create(){
+
+        let my = this.my;
+
+        my.sprite.timeUP = this.add.sprite(400, 250, "gamHub", "text_timeup.png");
 
         //playerScore.getScore();
         let playerScore = this.registry.get('highScoreTwo');
