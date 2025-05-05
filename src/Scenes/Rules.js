@@ -20,8 +20,16 @@ class Rules extends Phaser.Scene {
             }
         });
 
+        this.add.text(20, 100, "Move with 'A' and 'D', fire with the spacebar", {
+            fontFamily: 'Times, serif',
+            fontSize: 30,
+            wordWrap: {
+                width: 500
+            }
+        });
+
         //rule 1: feed the bunnies and pigs
-        this.add.text(20, 100, "1: Feed the bunnies and pig to gain points", {
+        this.add.text(20, 200, "1: Feed the bunnies and pig to gain points", {
             fontFamily: 'Times, serif',
             fontSize: 30,
             wordWrap: {
@@ -30,7 +38,7 @@ class Rules extends Phaser.Scene {
         });
 
         //rule 2: avoid the bird and monkeies
-        this.add.text(20, 200, "2: Avoid the birds and monkies, they make you lose points", {
+        this.add.text(20, 300, "2: Avoid the birds and monkies, they make you lose points", {
             fontFamily: 'Times, serif',
             fontSize: 30,
             wordWrap: {
@@ -39,7 +47,7 @@ class Rules extends Phaser.Scene {
         });
 
         //rule 3: time limit and high score
-        this.add.text(20, 300, "3: You only have 30 seonds, get the highest score", {
+        this.add.text(20, 400, "3: You only have 30 seonds, get the highest score", {
             fontFamily: 'Times, serif',
             fontSize: 30,
             wordWrap: {
