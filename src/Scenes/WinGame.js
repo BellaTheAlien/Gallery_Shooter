@@ -53,6 +53,9 @@ class WinGame extends Phaser.Scene{
             this.scene.start("boss");
         }
         if(Phaser.Input.Keyboard.JustDown(this.escKey)){
+            this.sound.play("hubNote", {
+                volume: 0.5
+            });
             this.scene.start("intro");
         }
     }
