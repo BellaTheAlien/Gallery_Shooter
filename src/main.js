@@ -15,7 +15,7 @@ let config = {
     },
     width: 800,
     height: 600,
-    scene: [Intro, Rules, BabyBunny, ScoreRoundOne, Pigs, ScoreRoundTwo]
+    scene: [Intro, Rules, BabyBunny, ScoreRoundOne, Pigs, ScoreRoundTwo, BossLevel, GameOver, WinGame]
 }
 
 const game = new Phaser.Game(config);

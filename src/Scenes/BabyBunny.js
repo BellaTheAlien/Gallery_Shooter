@@ -54,6 +54,10 @@ class BabyBunny extends Phaser.Scene {
         this.left = this.input.keyboard.addKey("A");
         this.right = this.input.keyboard.addKey("D");
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        //recalling the time and score when the scene in reloaded
+        this.myScore = 0;
+        this.myTime = 30;
         
         //adding the player to the scene
         my.sprite.player = new Player(this, game.config.width/2, game.config.height - 40, "player", "rifle.png", this.left, this.right, this.playerSpeed);

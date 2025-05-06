@@ -59,6 +59,10 @@ class Pigs extends Phaser.Scene {
         this.right = this.input.keyboard.addKey("D");
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
+        //recalling the time and score when the scene in reloaded
+        this.myScore = 0;
+        this.myTime = 30;
+
         //the player movment - calls the player subclass
         my.sprite.player = new Player(this, game.config.width/2, game.config.height - 40, "player", "rifle.png", this.left, this.right, this.playerSpeed);
         my.sprite.player.setScale(0.5);
@@ -182,8 +186,8 @@ class Pigs extends Phaser.Scene {
         //cales the Player update move movment of the player to act
         my.sprite.player.update();
 
-         //check for the food being fired
-         if(Phaser.Input.Keyboard.JustDown(this.space)){
+        //check for the food being fired
+        if(Phaser.Input.Keyboard.JustDown(this.space)){
             if(my.sprite.food.length < this.maxFood){
                 my.sprite.food.push(this.add.sprite(
                     my.sprite.player.x, my.sprite.player.y-(my.sprite.player.displayHeight/2), "food", "icon_bullet_gold_short.png")

@@ -1,10 +1,8 @@
-class ScoreRoundTwo extends Phaser.Scene {
+class WinGame extends Phaser.Scene{
     constructor(){
-        super("scoreRoundTwo");
+        super("winner");
         this.my = {sprite: {}};
-       
     }
-
     preload(){
         this.load.setPath("./assets/");
 
@@ -13,36 +11,39 @@ class ScoreRoundTwo extends Phaser.Scene {
 
         //load the time up sprite
         this.load.atlasXML("gamHub", "spritesheet_hud.png", "spritesheet_hud.xml");
+
     }
 
     create(){
-
         let my = this.my;
 
-        my.sprite.timeUP = this.add.sprite(400, 250, "gamHub", "text_timeup.png");
-
-        //playerScore.getScore();
-        let playerScore = this.registry.get('highScoreTwo');
-        //the enter key so the player can move on to the next scene
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-        // text
-        this.add.text(250, 5, `Your Score: ${playerScore}`, {
+        this.add.text(250, 220, "WINNER!!!", {
             fontFamily: 'Times, serif',
-            fontSize: 50,
-            wordWrap: {
-                width: 500
-            }
-         });
-
-         //asks the player to press enter
-        this.add.text(250, 500, "Press enter for boss!", {
-            fontFamily: 'Times, serif',
-            fontSize: 40,
+            fontSize: 60,
             wordWrap: {
                 width: 300
             }
         });
+
+        this.add.text(5, 500, "Press enter to feed the boss", {
+            fontFamily: 'Times, serif',
+            fontSize: 40,
+            wordWrap: {
+                width: 350
+            }
+        });
+
+        this.add.text(500, 500, "Press esc for main menu", {
+            fontFamily: 'Times, serif',
+            fontSize: 40,
+            wordWrap: {
+                width: 350
+            }
+        });
+
 
     }
 
@@ -51,6 +52,8 @@ class ScoreRoundTwo extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
             this.scene.start("boss");
         }
+        if(Phaser.Input.Keyboard.JustDown(this.escKey)){
+            this.scene.start("intro");
+        }
     }
-    
 }
